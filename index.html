@@ -1461,8 +1461,8 @@ function qa4Start(){
 function qa4Stop(){qa4Running=false;clearInterval(qa4Interval);}
 
 // Auto-start timers when user opens Phase 3 or 4 body
-const _origTog=tog;
-function tog(n){
+const _origTog = window.tog;
+window.tog = function(n){
   _origTog(n);
   if(n===3){const bd=document.getElementById('bd3');if(bd&&bd.classList.contains('open'))tr3Start();else tr3Stop();}
   if(n===4){const bd=document.getElementById('bd4');if(bd&&bd.classList.contains('open'))qa4Start();else qa4Stop();}
