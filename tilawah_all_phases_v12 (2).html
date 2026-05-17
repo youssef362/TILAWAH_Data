@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tilawah — All Phases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --teal:#1D9E75;--td:#0F6E56;--tdk:#085041;--tp:#E1F5EE;--tm:#9FE1CB;
+  --amber:#EF9F27;--amber-pale:#FAEEDA;--amber-dark:#633806;
+  --purple:#7F77DD;--purple-pale:#EEEDFE;--purple-dark:#3C3489;
+  --coral:#D85A30;--coral-pale:#FAECE7;--coral-dark:#712B13;
+  --blue:#378ADD;--blue-pale:#E6F1FB;--blue-dark:#0C447C;
+  --gray:#888780;--gray-pale:#F1EFE8;--gray-dark:#444441;
+  --red:#E24B4A;--red-pale:#FCEBEB;
+  --bg:#f5f4f1;--white:#ffffff;--border:rgba(0,0,0,0.1);
+  --text:#1a1a18;--muted:#6b6b67;--subtle:#aeaca7;
+  --font-ar:'Amiri',serif;--font-ui:'DM Sans',sans-serif;
+  --radius:12px;--radius-sm:8px;
+}
+html{background:#e8e7e3;}
+body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-height:1.5;max-width:860px;margin:0 auto;box-shadow:0 0 40px rgba(0,0,0,0.08);min-height:100vh;}
+
+/* ── NAV ── */
+.g-nav{background:var(--td);height:54px;display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:200;gap:16px;border-radius:0;}
+.g-brand{font-family:var(--font-ar);font-size:20px;color:#fff;letter-spacing:0.3px;}
+.g-links{display:flex;gap:4px;margin-left:auto;}
+.g-links a{color:rgba(255,255,255,0.65);font-size:12px;text-decoration:none;padding:5px 10px;border-radius:6px;white-space:nowrap;}
+.g-links a:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.g-counter{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border-radius:100px;padding:4px 12px;margin-left:12px;}
+.g-counter i{color:var(--tm);font-size:13px;}
+.g-counter span{color:#fff;font-size:12px;font-weight:500;}
+.g-counter small{color:rgba(255,255,255,0.4);font-size:12px;}
+
+/* ── PHASE CONNECTOR ── */
+.phase-connector{display:flex;flex-direction:column;align-items:center;padding:10px 0;position:relative;}
+.connector-line{width:2px;height:24px;background:var(--border);}
+.connector-arrow{color:var(--muted);font-size:20px;line-height:1;}
+
+/* ── PHASE CARD ── */
+.phase-card{margin:0 24px;border-radius:var(--radius);border:2px solid var(--border);overflow:hidden;background:var(--white);}
+.phase-card.p1{border-color:#0F6E56;}
+.phase-card.p2{border-color:#5DCAA5;}
+.phase-card.p3{border-color:#7F77DD;}
+.phase-card.p4{border-color:#EF9F27;}
+.phase-card.p5{border-color:#D85A30;}
+.phase-card.p6{border-color:#378ADD;}
+.phase-card.p7{border-color:#888780;}
+
+.phase-header{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;border-bottom:1px solid var(--border);user-select:none;}
+.phase-num-badge{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff;flex-shrink:0;}
+.phase-header-info{flex:1;}
+.phase-tag{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:2px;}
+.phase-title{font-size:15px;font-weight:500;color:var(--text);}
+.phase-header-user{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:3px 10px 3px 4px;margin-right:8px;flex-shrink:0;}
+.phu-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
+.phu-info{line-height:1.25;}
+.phu-name{font-size:10px;font-weight:600;color:var(--text);}
+.phu-id{font-size:9px;color:var(--muted);}
+
+.toggle-icon.open{transform:rotate(180deg);}
+
+.phase-body{overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.phase-body.open{max-height:2000px;}
+
+.inner{padding:24px 20px 28px;}
+
+/* ── BUTTONS (fixed) ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-ui);color:var(--text);transition:all .15s;white-space:nowrap;}
+.btn:hover{background:var(--bg);}
+.btn-primary{background:var(--td);color:#fff;border-color:var(--td);}
+.btn-primary:hover{background:var(--tdk);border-color:var(--tdk);}
+.btn-success{background:var(--tp);color:var(--tdk);border-color:var(--tm);}
+.btn-success:hover{background:#c8efdf;}
+.btn-danger{background:var(--red-pale);color:#791F1F;border-color:#F09595;}
+.btn-danger:hover{background:#f5d5d5;}
+.btn-ghost{background:transparent;border-color:var(--border);}
+.btn-ghost:hover{background:var(--bg);}
+
+/* ── SHARED ── */
+.card-section{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:14px;}
+.label-sm{font-size:10px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.status-pill{display:inline-flex;align-items:center;font-size:11px;padding:2px 9px;border-radius:100px;font-weight:500;}
+.pill-pass{background:var(--tp);color:var(--tdk);}
+.pill-fail{background:var(--red-pale);color:#791F1F;}
+.pill-pend{background:var(--amber-pale);color:var(--amber-dark);}
+
+/* ── P1: DATA COLLECTION ── */
+.hero-dark{background:var(--tdk);padding:22px 20px 0;}
+.ayah-hero{font-family:var(--font-ar);font-size:26px;color:#fff;text-align:center;direction:rtl;line-height:2;margin-bottom:16px;}
+.prog-band{background:rgba(255,255,255,0.06);border-radius:10px 10px 0 0;padding:14px 18px;}
+.prog-toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.prog-left{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tm);font-weight:500;}
+.prog-left i{font-size:14px;}
+.prog-pct{font-size:13px;color:rgba(255,255,255,0.55);}
+.bar-track{height:7px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+.bar-fill{height:100%;background:var(--teal);border-radius:4px;width:17.8%;}
+.reward-row{background:rgba(239,159,39,0.07);border-top:1px solid rgba(239,159,39,0.2);padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.reward-ic{width:36px;height:36px;border-radius:50%;background:rgba(239,159,39,0.12);border:1px solid rgba(239,159,39,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.reward-ic i{color:#FAC775;font-size:17px;}
+.reward-txt{flex:1;}
+.reward-title{font-size:12px;font-weight:500;color:#FAC775;margin-bottom:2px;}
+.reward-desc{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5;}
+.reward-badge{background:rgba(239,159,39,0.12);border:1px solid rgba(239,159,39,0.22);border-radius:100px;padding:4px 12px;font-size:11px;color:#FAC775;white-space:nowrap;font-weight:500;}
+.ayah-card{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:26px 20px;text-align:center;margin-bottom:18px;}
+.ayah-text-big{font-family:var(--font-ar);font-size:22px;direction:rtl;color:var(--text);line-height:2.4;margin-bottom:12px;}
+.ayah-ref-row{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:13px;margin-bottom:5px;}
+.change-hint{font-size:12px;color:var(--subtle);cursor:pointer;}
+.change-hint:hover{color:var(--teal);}
+.mic-row{display:flex;align-items:center;justify-content:center;gap:32px;margin-bottom:16px;}
+.mic-big{width:56px;height:56px;border-radius:50%;background:var(--td);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.mic-big:hover{background:var(--tdk);}
+.mic-big.rec{background:var(--red);}
+.mic-big i{color:#fff;font-size:22px;}
+.mic-lbl{font-size:11px;color:var(--subtle);margin-top:5px;text-align:center;}
+.toggle-continuous{display:flex;align-items:center;justify-content:center;gap:8px;}
+.tog{width:36px;height:20px;border-radius:10px;background:#d0cdc7;position:relative;cursor:pointer;transition:background .2s;}
+.tog.on{background:var(--teal);}
+.knob{width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;}
+.tog.on .knob{left:18px;}
+.stats-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;}
+.stat-box{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:14px;text-align:center;}
+.stat-n{font-size:22px;font-weight:500;color:var(--text);}
+.stat-n.green{color:var(--td);}
+.stat-l{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* ── P2: QC ── */
+.file-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.file-item{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:border-color .15s;}
+.file-item:hover{border-color:var(--teal);}
+.file-item.sel{border-color:var(--teal);background:var(--tp);}
+.fname{font-size:12px;font-weight:500;font-family:monospace;color:var(--text);margin-bottom:5px;}
+.fmeta{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);}
+.waveform{display:flex;align-items:center;gap:2px;height:44px;margin:10px 0;}
+.wv-b{width:3px;border-radius:2px;background:var(--teal);}
+.checks-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.check-chip{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:9px 10px;}
+.check-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px;}
+.check-val{font-size:13px;font-weight:500;}
+.ok{color:var(--td);}
+.warn{color:#A32D2D;}
+.actions-row{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ── P3: TRANSCRIPTION ── */
+.player-box{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:16px;margin-bottom:14px;}
+.player-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.play-circle{width:38px;height:38px;border-radius:50%;background:var(--td);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.play-circle:hover{background:var(--tdk);}
+.play-circle i{color:#fff;font-size:16px;}
+.fid{font-size:11px;font-family:monospace;color:var(--muted);margin-bottom:3px;}
+.dur{font-size:11px;color:var(--teal);font-weight:500;}
+.prog-audio{height:5px;background:#d0cdc7;border-radius:3px;cursor:pointer;margin-bottom:10px;position:relative;}
+.prog-audio-fill{height:100%;background:var(--teal);border-radius:3px;width:0%;}
+.speed-chips{display:flex;gap:6px;align-items:center;}
+.spd{padding:5px 12px;border-radius:6px;border:1.5px solid var(--border);background:var(--white);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-ui);color:var(--muted);transition:all .15s;}
+.spd.on{background:var(--td);color:#fff;border-color:var(--td);}
+.word-row{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:12px;direction:rtl;justify-content:center;}
+.word-chip{font-family:var(--font-ar);font-size:17px;padding:4px 10px;border-radius:6px;cursor:pointer;color:var(--muted);border:1.5px solid transparent;transition:all .15s;}
+.word-chip.active{background:var(--td);color:#fff;border-color:var(--td);}
+.word-chip.done{color:var(--tdk);}
+.word-chip:hover{border-color:var(--teal);}
+.trans-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-family:var(--font-ar);font-size:20px;direction:rtl;line-height:1.9;color:var(--text);background:var(--white);resize:none;outline:none;transition:border-color .2s;}
+.trans-textarea:focus{border-color:var(--teal);}
+.shortcut-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.key{font-size:11px;padding:3px 8px;border-radius:4px;border:1.5px solid var(--border);background:var(--bg);color:var(--muted);font-family:monospace;}
+.submit-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+.prog-label{font-size:12px;color:var(--muted);}
+
+/* ── P4: QA ── */
+.qa-two{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;}
+.qa-item{padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);margin-bottom:6px;cursor:pointer;background:var(--white);transition:border-color .15s;}
+.qa-item:hover{border-color:var(--teal);}
+.qa-item.sel{border-color:var(--teal);background:var(--tp);}
+.qa-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.qa-sub{font-size:11px;color:var(--muted);}
+.diff-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px;}
+.diff-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:6px;}
+.diff-orig{font-family:var(--font-ar);font-size:17px;color:var(--muted);text-decoration:line-through;display:block;margin-bottom:4px;direction:rtl;}
+.diff-fix{font-family:var(--font-ar);font-size:17px;color:var(--td);font-weight:500;display:block;direction:rtl;}
+
+/* ── P5: REVIEW ── */
+.review-wrap{background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);padding:20px;}
+.review-prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;}
+.review-bar{height:5px;background:#d0cdc7;border-radius:3px;overflow:hidden;margin-bottom:16px;}
+.review-bar-fill{height:100%;background:var(--teal);border-radius:3px;width:34%;}
+.review-ayah{font-family:var(--font-ar);font-size:21px;direction:rtl;text-align:center;line-height:2.2;color:var(--text);margin-bottom:16px;}
+.meta-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.meta-chip{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;}
+.meta-chip-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px;}
+.meta-chip-v{font-size:13px;font-weight:500;color:var(--text);}
+.audio-preview{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;}
+.yn-row{display:flex;gap:10px;}
+.yn-btn{flex:1;padding:13px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--white);font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-ui);transition:all .15s;}
+.yn-y:hover{background:var(--tp);border-color:var(--teal);color:var(--tdk);}
+.yn-n:hover{background:var(--red-pale);border-color:#F09595;color:#791F1F;}
+
+/* ── P6: ML ── */
+.ml-stats-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.ml-s{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;}
+.ml-num{font-size:24px;font-weight:500;color:var(--text);}
+.ml-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+.ml-sub{font-size:11px;margin-top:4px;}
+.ml-ok{color:var(--td);}
+.ml-warn{color:#854F0B;}
+.file-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:6px;background:var(--white);}
+.file-row i{color:var(--muted);font-size:16px;flex-shrink:0;}
+.file-n{font-size:12px;font-family:monospace;color:var(--text);flex:1;}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:9px;height:9px;border-radius:50%;}
+.d-ok{background:var(--teal);}
+.d-warn{background:var(--amber);}
+.d-err{background:var(--red);}
+.dot-legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:10px;align-items:center;}
+
+/* ── P7: DELIVERY ── */
+.delivery-hero{text-align:center;padding:16px 0 20px;}
+.del-num{font-size:44px;font-weight:500;color:var(--teal);line-height:1;}
+.del-sub{font-size:13px;color:var(--muted);margin-top:4px;}
+.del-badge{display:inline-flex;align-items:center;gap:7px;background:var(--tp);color:var(--tdk);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:500;margin-top:12px;}
+.del-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.del-pkg{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
+.del-pkg-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px;}
+.del-pkg-title i{color:var(--teal);font-size:16px;}
+.del-pkg-info{font-size:12px;color:var(--muted);line-height:1.9;}
+
+@media(max-width:600px){
+  .two-col,.file-grid,.qa-two,.del-grid,.ml-stats-3,.stats-3,.meta-3,.checks-3{grid-template-columns:1fr;}
+  .inner{padding:16px 14px 20px;}
+  .phase-card{margin:0 12px;}
+  .g-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="g-nav">
+  <span class="g-brand">Tilawah</span>
+  <div class="g-links">
+    <a href="#p1">Data Collection</a>
+    <a href="#p2">Recording QC</a>
+    <a href="#p3">Transcription</a>
+    <a href="#p4">QA Review</a>
+    <a href="#p5">Expert Review</a>
+    <a href="#p6">ML Validation</a>
+    <a href="#p7">Delivery</a>
+  </div>
+  <div class="g-counter">
+    <i class="ti ti-microphone"></i>
+    <span>7,204</span>
+    <small>/ 46,287</small>
+  </div>
+</nav>
+
+<div style="height:20px;"></div>
+
+<!-- ══════════ PHASE 1 ══════════ -->
+<div id="p1" class="phase-card p1">
+  <div class="phase-header" onclick="tog(1)">
+    <div class="phase-num-badge" style="background:#0F6E56;">1</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#0F6E56;">Phase 1</div>
+      <div class="phase-title">Data Collection — Reciter Interface</div>
+    </div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic1"></i>
+  </div>
+  <div class="phase-body open" id="bd1">
+    <!-- Option tabs -->
+    <div style="display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--white);padding:0 20px;">
+      <button id="p1tab-a" onclick="switchP1('a')" style="padding:10px 18px;border:none;background:none;font-family:var(--font-ui);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid var(--td);color:var(--td);margin-bottom:-1px;">Option A — Current design</button>
+      <button id="p1tab-b" onclick="switchP1('b')" style="padding:10px 18px;border:none;background:none;font-family:var(--font-ui);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);margin-bottom:-1px;">Option B — No reward banner</button>
+    </div>
+
+    <!-- OPTION A: current, with reward -->
+    <div id="p1-opt-a">
+    <!-- Reciter Website Header -->
+    <div style="background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--tdk);display:flex;align-items:center;justify-content:center;">
+          <i class="ti ti-microphone" style="color:#fff;font-size:13px;"></i>
+        </div>
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:var(--font-ar);font-size:16px;color:var(--text);font-weight:700;">تلاوة</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.5px;">TILAWAH</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#22c07a;flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--muted);">Active session</span>
+        </div>
+        <div id="sessionTimerPill" style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;transition:border-color .3s,background .3s;">
+          <i class="ti ti-clock" style="font-size:12px;color:var(--tdk);" id="sessionTimerIcon"></i>
+          <span style="font-size:11px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:0.3px;" id="sessionTimerA">0:00:00</span>
+          <span style="font-size:10px;color:var(--muted);"> / 4:00:00</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 14px 4px 5px;cursor:pointer;">
+          <div style="width:26px;height:26px;border-radius:50%;background:var(--tdk);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-size:10px;color:#fff;font-weight:700;">SA</span>
+          </div>
+          <div style="line-height:1.3;">
+            <div style="font-size:11px;font-weight:600;color:var(--text);">Salem Al-Harbi</div>
+            <div style="font-size:10px;color:var(--muted);">ID: REC-00421</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-dark">
+      <div class="ayah-hero">إِنَّهُمْ كَانُوا يُسَارِعُونَ فِي الْخَيْرَاتِ</div>
+      <div class="prog-band">
+        <div class="prog-toprow">
+          <div class="prog-left"><i class="ti ti-clock"></i> 142 / 800 hours completed</div>
+          <div class="prog-pct">17.8%</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid rgba(239,159,39,0.18);background:rgba(239,159,39,0.05);">
+          <i class="ti ti-gift" style="color:rgba(250,199,117,0.8);font-size:13px;flex-shrink:0;"></i>
+          <div style="flex:1;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.55);display:block;">Upon completion: 100 meals donated for Guests of the Most Merciful in Makkah</span>
+            <span style="font-size:12px;font-family:var(--font-ar);direction:rtl;color:rgba(255,255,255,0.45);display:block;margin-top:2px;">١٠٠ وجبة لضيوف الرحمن في مكة المكرمة — مُهداة باسم مشروع تلاوة</span>
+          </div>
+          <span style="font-size:10px;color:rgba(250,199,117,0.7);background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.18);border-radius:100px;padding:2px 10px;white-space:nowrap;font-weight:500;">658 hrs left</span>
+        </div>
+      </div>
+    </div>
+    <div class="inner">
+      <div class="ayah-card">
+        <div class="ayah-text-big">فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ ۚ وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَأَقْرِضُوا اللَّهَ قَرْضًا حَسَنًا ۚ وَمَا تُقَدِّمُوا لِأَنْفُسِكُمْ مِنْ خَيْرٍ تَجِدُوهُ عِنْدَ اللَّهِ هُوَ خَيْرًا وَأَعْظَمَ أَجْرًا ۚ</div>
+        <div class="ayah-ref-row">
+          <span>(Al-Muzzammil : 20)</span>
+          <i class="ti ti-share" style="cursor:pointer;"></i>
+        </div>
+        <div class="change-hint">Click here to change Ayah</div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin-bottom:20px;">
+      <div class="mic-row">
+        <button class="btn btn-ghost"><i class="ti ti-arrow-left"></i> Previous Ayah</button>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <button class="mic-big" id="m1" onclick="toggleMic(1)"><i class="ti ti-microphone" id="mi1"></i></button>
+          <div class="mic-lbl" id="ml1">Tap to record</div>
+        </div>
+        <button class="btn btn-ghost">Next Ayah <i class="ti ti-arrow-right"></i></button>
+      </div>
+      <div class="toggle-continuous" style="margin-bottom:20px;">
+        <div class="tog" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+        <span style="font-size:13px;color:var(--muted);">Continuous mode</span>
+      </div>
+    </div>
+    <!-- Website Footer -->
+    <div style="background:var(--bg);border-top:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:11px;color:var(--subtle);">© 2025 Tilawah Project</span>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Help</span>
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Guidelines</span>
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Sign out</span>
+      </div>
+    </div>
+    </div><!-- /p1-opt-a -->
+
+    <!-- OPTION B: no reward banner -->
+    <div id="p1-opt-b" style="display:none;">
+    <!-- Reciter Website Header -->
+    <div style="background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:30px;height:30px;border-radius:9px;background:var(--tdk);display:flex;align-items:center;justify-content:center;">
+          <i class="ti ti-microphone" style="color:#fff;font-size:13px;"></i>
+        </div>
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:var(--font-ar);font-size:16px;color:var(--text);font-weight:700;">تلاوة</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.5px;">TILAWAH</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#22c07a;flex-shrink:0;"></div>
+          <span style="font-size:11px;color:var(--muted);">Active session</span>
+        </div>
+        <div id="sessionTimerPillB" style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;transition:border-color .3s,background .3s;">
+          <i class="ti ti-clock" style="font-size:12px;color:var(--tdk);" id="sessionTimerIconB"></i>
+          <span style="font-size:11px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:0.3px;" id="sessionTimerB">0:00:00</span>
+          <span style="font-size:10px;color:var(--muted);"> / 4:00:00</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 14px 4px 5px;cursor:pointer;">
+          <div style="width:26px;height:26px;border-radius:50%;background:var(--tdk);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-size:10px;color:#fff;font-weight:700;">SA</span>
+          </div>
+          <div style="line-height:1.3;">
+            <div style="font-size:11px;font-weight:600;color:var(--text);">Salem Al-Harbi</div>
+            <div style="font-size:10px;color:var(--muted);">ID: REC-00421</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inner">
+      <div class="ayah-card">
+        <div class="ayah-text-big">فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ ۚ وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَأَقْرِضُوا اللَّهَ قَرْضًا حَسَنًا ۚ وَمَا تُقَدِّمُوا لِأَنْفُسِكُمْ مِنْ خَيْرٍ تَجِدُوهُ عِنْدَ اللَّهِ هُوَ خَيْرًا وَأَعْظَمَ أَجْرًا ۚ</div>
+        <div class="ayah-ref-row"><span>(Al-Muzzammil : 20)</span><i class="ti ti-share" style="cursor:pointer;"></i></div>
+        <div class="change-hint">Click here to change Ayah</div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin-bottom:20px;">
+      <div class="mic-row">
+        <button class="btn btn-ghost"><i class="ti ti-arrow-left"></i> Previous Ayah</button>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <button class="mic-big" id="m1b" onclick="toggleMic('1b')"><i class="ti ti-microphone" id="mi1b"></i></button>
+          <div class="mic-lbl" id="ml1b">Tap to record</div>
+        </div>
+        <button class="btn btn-ghost">Next Ayah <i class="ti ti-arrow-right"></i></button>
+      </div>
+      <div class="toggle-continuous" style="margin-bottom:20px;">
+        <div class="tog" onclick="this.classList.toggle('on')"><div class="knob"></div></div>
+        <span style="font-size:13px;color:var(--muted);">Continuous mode</span>
+      </div>
+    </div>
+    <!-- Website Footer -->
+    <div style="background:var(--bg);border-top:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:11px;color:var(--subtle);">© 2025 Tilawah Project</span>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Help</span>
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Guidelines</span>
+        <span style="font-size:11px;color:var(--muted);cursor:pointer;">Sign out</span>
+      </div>
+    </div>
+    </div><!-- /p1-opt-b -->
+  </div>
+</div>
+
+<!-- connector -->
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 2 ══════════ -->
+<div id="p2" class="phase-card p2">
+  <div class="phase-header" onclick="tog(2)">
+    <div class="phase-num-badge" style="background:#5DCAA5;">2</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#1D9E75;">Phase 2</div>
+      <div class="phase-title">Recording QC — Quality Control Review</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#5DCAA5;"><i class="ti ti-shield-check" style="font-size:10px;"></i></div><div><div class="phu-name">QC Reviewer</div><div class="phu-id">ID: QC-00187</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic2"></i>
+  </div>
+  <div class="phase-body open" id="bd2">
+    <div class="inner">
+      <p class="label-sm">File Queue</p>
+      <div class="file-grid">
+        <div class="file-item sel">
+          <div class="fname">SA_0042_rec.wav</div>
+          <div class="fmeta"><span>29.4s</span><span>Saudi Arabia</span><span class="status-pill pill-pend">Reviewing</span></div>
+        </div>
+        <div class="file-item">
+          <div class="fname">EG_0117_rec.wav</div>
+          <div class="fmeta"><span>18.2s</span><span>Egypt</span><span class="status-pill pill-pass">Passed</span></div>
+        </div>
+        <div class="file-item">
+          <div class="fname">SY_0033_rec.wav</div>
+          <div class="fmeta"><span>41.0s</span><span>Syria</span><span class="status-pill pill-fail">Rejected</span></div>
+        </div>
+        <div class="file-item">
+          <div class="fname">SA_0091_rec.wav</div>
+          <div class="fmeta"><span>22.7s</span><span>Saudi Arabia</span><span class="status-pill pill-pass">Passed</span></div>
+        </div>
+      </div>
+      <div class="card-section">
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px;">SA_0042_rec.wav — QC Detail</div>
+        <div class="waveform" id="wv"></div>
+        <div class="checks-3">
+          <div class="check-chip"><div class="check-lbl">Voice quality</div><div class="check-val ok">Clear</div></div>
+          <div class="check-chip"><div class="check-lbl">Background noise</div><div class="check-val ok">Low</div></div>
+          <div class="check-chip"><div class="check-lbl">Clipping</div><div class="check-val warn">Detected</div></div>
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-success"><i class="ti ti-check"></i> Approve</button>
+          <button class="btn btn-danger"><i class="ti ti-x"></i> Reject</button>
+          <button class="btn btn-ghost"><i class="ti ti-refresh"></i> Re-record</button>
+          <button class="btn btn-ghost" style="margin-left:auto;"><i class="ti ti-player-play"></i> Play</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 3 ══════════ -->
+<div id="p3" class="phase-card p3">
+  <div class="phase-header" onclick="tog(3)">
+    <div class="phase-num-badge" style="background:#7F77DD;">3</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#7F77DD;">Phase 3</div>
+      <div class="phase-title">Transcription — Word Detection & Tashkeel</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#7F77DD;"><i class="ti ti-pencil" style="font-size:10px;"></i></div><div><div class="phu-name">Transcriber</div><div class="phu-id">ID: TR-00334</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic3"></i>
+  </div>
+  <div class="phase-body open" id="bd3">
+    <!-- View toggle -->
+    <div style="display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--white);padding:0 20px;">
+      <button id="p3tab-a" onclick="switchP3('a')" style="padding:10px 18px;border:none;background:none;font-family:var(--font-ui);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid var(--purple);color:var(--purple);margin-bottom:-1px;">Option 1</button>
+      <button id="p3tab-b" onclick="switchP3('b')" style="padding:10px 18px;border:none;background:none;font-family:var(--font-ui);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);margin-bottom:-1px;">Option 2</button>
+    </div>
+
+    <!-- OPTION A: SoundCloud waveform with comment markers -->
+    <div id="p3-opt-a">
+    <div style="background:#1a1a18;padding:20px 20px 0;">
+      <!-- Track header row like SoundCloud -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+        <button id="scPlayBtn" onclick="scTogglePlay()" style="width:48px;height:48px;border-radius:50%;background:var(--purple);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="ti ti-player-play" id="scPlayIc" style="color:#fff;font-size:20px;"></i>
+        </button>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:2px;">EG_0117_dea511eb.wav</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);">Egypt · Male · Surah Al-Muzzammil 73:20 · 18.2s</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="spd" onclick="setS3(0.75,this)" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);">0.75×</button>
+          <button class="spd on" onclick="setS3(1,this)" style="">1×</button>
+          <button class="spd" onclick="setS3(1.25,this)" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);">1.25×</button>
+        </div>
+      </div>
+
+      <!-- Voice-message style waveform + annotation layer -->
+      <div style="position:relative;padding:0 0 8px;">
+        <!-- Waveform canvas — voice bubble style -->
+        <div id="scWave" onclick="scWaveClick(event)" style="position:relative;height:72px;cursor:pointer;display:flex;align-items:center;gap:2px;background:rgba(255,255,255,0.04);border-radius:10px;padding:0 8px;overflow:visible;">
+          <!-- bars injected by JS -->
+          <!-- Playhead -->
+          <div id="scHead" style="position:absolute;left:0;top:0;bottom:0;width:2px;background:#fff;opacity:0.9;pointer-events:none;z-index:3;border-radius:1px;box-shadow:0 0 6px rgba(255,255,255,0.5);"></div>
+          <!-- Annotation pins injected on the waveform -->
+          <div id="scPins" style="position:absolute;inset:0;pointer-events:none;z-index:5;"></div>
+        </div>
+        <!-- Time + hint row -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 2px 0;">
+          <span style="font-size:10px;color:rgba(255,255,255,0.3);" id="scTimeLbl">0:00 / 0:18</span>
+          <span style="font-size:10px;color:rgba(127,119,221,0.7);display:flex;align-items:center;gap:4px;"><i class="ti ti-message-circle" style="font-size:11px;"></i> Click wave to annotate</span>
+        </div>
+      </div>
+
+      <!-- Inline comment input (pops up anchored near click point) -->
+      <div id="scCommentBox" style="display:none;background:rgba(20,20,28,0.96);border:1px solid rgba(127,119,221,0.45);border-radius:10px;padding:10px 12px;margin:4px 0 8px;backdrop-filter:blur(8px);">
+        <div style="font-size:10px;color:rgba(127,119,221,0.85);margin-bottom:7px;display:flex;align-items:center;gap:5px;" id="scCommentAtLbl">
+          <i class="ti ti-pin" style="font-size:11px;"></i> Add annotation at 0:00
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input id="scCommentInput" type="text" placeholder="Type annotation…"
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:7px 10px;font-size:13px;color:#fff;font-family:var(--font-ui);outline:none;"
+            onkeydown="if(event.key==='Enter')scSaveComment()">
+          <button onclick="scSaveComment()" style="background:var(--purple);border:none;border-radius:6px;padding:7px 14px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;">Save</button>
+          <button onclick="document.getElementById('scCommentBox').style.display='none'" style="background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;font-family:var(--font-ui);">✕</button>
+        </div>
+      </div>
+
+      <!-- Active annotations list -->
+      <div id="scAnnotationList" style="padding-bottom:4px;"></div>
+
+    </div>
+
+    <div class="inner">
+      <!-- word highlighting with full ayah -->
+      <p class="label-sm">Detected words — click to select</p>
+      <div class="word-row" id="wordRow3"></div>
+
+      <div class="submit-row">
+        <span class="prog-label">File 1,547 / 4,500 · <strong style="color:var(--teal);">34%</strong></span>
+        <button class="btn btn-primary">Submit <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+    </div><!-- /p3-opt-a -->
+
+    <!-- OPTION B: Tilawah header style (matching image 2) -->
+    <div id="p3-opt-b" style="display:none;">
+      <!-- Green header bar -->
+      <div style="background:var(--tdk);padding:12px 20px;display:flex;align-items:center;gap:14px;">
+        <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="ti ti-file-audio" style="color:#fff;font-size:16px;"></i>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:500;color:#fff;">EG_0117_doa511eb.wav</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);">18.2s</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="spd" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:11px;padding:4px 10px;">0.75×</button>
+          <button class="spd" style="background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);color:#fff;font-size:11px;padding:4px 10px;">1.0×</button>
+          <button class="spd" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:11px;padding:4px 10px;">1.25×</button>
+        </div>
+      </div>
+      <!-- Waveform in teal bg matching image 1 -->
+      <div style="background:#d4efe6;padding:12px 20px 10px;position:relative;" id="p3bWaveWrap" onclick="p3bSeek(event)">
+        <div style="height:56px;display:flex;align-items:center;gap:2px;cursor:pointer;position:relative;background:rgba(15,110,86,0.08);border-radius:10px;padding:0 8px;" id="p3bWave">
+          <div id="p3bHead" style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--tdk);opacity:0.85;pointer-events:none;z-index:3;border-radius:1px;box-shadow:0 0 5px rgba(15,110,86,0.4);"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:4px 2px 0;font-size:10px;color:rgba(15,110,86,0.5);">
+          <span id="p3bTimeLbl">0:00</span><span>0:18</span>
+        </div>
+      </div>
+      <div class="inner">
+        <div style="margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+          <button onclick="p3bTogglePlay()" style="width:38px;height:38px;border-radius:50%;background:var(--td);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+            <i class="ti ti-player-play" id="p3bPlayIc" style="color:#fff;font-size:16px;"></i>
+          </button>
+          <span style="font-size:11px;color:var(--muted);" id="p3bTimeDisp">0:00 / 0:18</span>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;text-align:right;direction:rtl;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;text-align:left;direction:ltr;">TRANSCRIPTION / النسخ</div>
+          <textarea style="width:100%;border:none;background:transparent;font-family:var(--font-ar);font-size:21px;line-height:2;color:var(--text);direction:rtl;resize:none;outline:none;padding:0;min-height:60px;" spellcheck="false">فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَأَقْرِضُوا اللَّهَ قَرْضًا حَسَنًا</textarea>
+        </div>
+        <p class="label-sm">Transcription / النسخ</p>
+        <div class="shortcut-row">
+          <span class="key">Shift+Q فتحة</span>
+          <span class="key">Shift+E ضمة</span>
+          <span class="key">Shift+A كسرة</span>
+          <span class="key">Shift+X سكون</span>
+          <span class="key">Shift+ذ شدة</span>
+        </div>
+        <div class="submit-row" style="margin-top:14px;">
+          <span class="prog-label">1,547 / 4,500 completed</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-ghost">Skip</button>
+            <button class="btn btn-primary">Submit <i class="ti ti-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /p3-opt-b -->
+  </div>
+</div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 4 ══════════ -->
+<div id="p4" class="phase-card p4">
+  <div class="phase-header" onclick="tog(4)">
+    <div class="phase-num-badge" style="background:#EF9F27;">4</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#EF9F27;">Phase 4</div>
+      <div class="phase-title">QA Review — Listen, Correct & Complete Data</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#EF9F27;"><i class="ti ti-user-check" style="font-size:10px;"></i></div><div><div class="phu-name">QA Analyst</div><div class="phu-id">ID: QA-00092</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic4"></i>
+  </div>
+  <div class="phase-body open" id="bd4">
+    <div class="inner">
+      <div class="qa-two">
+        <!-- Left: file queue -->
+        <div>
+          <p class="label-sm">Review queue</p>
+          <div class="qa-item sel">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="qa-name">EG_0117 — Al-Muzzammil 73:20</div>
+              <span class="status-pill pill-pend">In review</span>
+            </div>
+            <div class="qa-sub">2 issues · missing metadata</div>
+          </div>
+          <div class="qa-item">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="qa-name">SA_0042 — Al-Baqarah 2:255</div>
+              <span class="status-pill pill-pass">Clear</span>
+            </div>
+            <div class="qa-sub">No issues</div>
+          </div>
+          <div class="qa-item">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="qa-name">SY_0088 — Al-Fatiha 1:1</div>
+              <span class="status-pill pill-fail">Needs fix</span>
+            </div>
+            <div class="qa-sub">Missing tashkeel</div>
+          </div>
+        </div>
+
+        <!-- Right: listen + correct + add data -->
+        <div>
+          <!-- Audio player -->
+          <p class="label-sm" style="margin-bottom:8px;">Step 1 — Listen</p>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <button onclick="qaTogglePlay()" style="width:36px;height:36px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <i class="ti ti-player-play" id="qaPlayIc" style="color:#fff;font-size:15px;"></i>
+              </button>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-family:monospace;color:var(--muted);">EG_0117_dea511eb.wav · 18.2s</div>
+              </div>
+              <span style="font-size:11px;color:var(--muted);" id="qaTimeDisp">0:00 / 0:18</span>
+            </div>
+            <!-- mini waveform player — voice message style -->
+            <div id="qaWaveBar" onclick="qaSeek(event)" style="height:48px;display:flex;align-items:center;gap:2px;cursor:pointer;position:relative;background:rgba(239,159,39,0.06);border-radius:10px;padding:0 8px;">
+              <div id="qaHead" style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--amber);pointer-events:none;z-index:3;border-radius:1px;box-shadow:0 0 5px rgba(239,159,39,0.45);"></div>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px;">
+              <button class="spd" onclick="setQAspd(0.75,this)" style="font-size:11px;padding:3px 9px;">0.75×</button>
+              <button class="spd on" onclick="setQAspd(1,this)" style="font-size:11px;padding:3px 9px;">1×</button>
+              <button class="spd" onclick="setQAspd(1.25,this)" style="font-size:11px;padding:3px 9px;">1.25×</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Correct transcription -->
+          <p class="label-sm" style="margin-bottom:8px;">Step 2 — Correct transcription</p>
+          <div class="diff-card" style="margin-bottom:8px;">
+            <div class="diff-lbl">Word 3 — tashkeel mismatch</div>
+            <span class="diff-orig">صَدَقَه</span>
+            <span class="diff-fix">صَدَقَةٗ <span style="font-size:11px;color:var(--td);">(corrected)</span></span>
+          </div>
+          <div class="diff-card" style="margin-bottom:12px;">
+            <div class="diff-lbl">Word 7 — missing kasra tanwin</div>
+            <span class="diff-orig">بِها</span>
+            <span class="diff-fix">بِهَا <span style="font-size:11px;color:var(--td);">(corrected)</span></span>
+          </div>
+          <textarea style="width:100%;min-height:72px;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-ar);font-size:18px;direction:rtl;line-height:1.9;color:var(--text);background:var(--white);resize:none;outline:none;margin-bottom:12px;" placeholder="Edit transcription if needed…">فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَأَقْرِضُوا اللَّهَ قَرْضًا حَسَنًا</textarea>
+
+          <div class="actions-row">
+            <button class="btn btn-success" style="flex:1;"><i class="ti ti-check"></i> Approve & save</button>
+            <button class="btn btn-danger"><i class="ti ti-arrow-back-up"></i> Send back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 5 ══════════ -->
+<div id="p5" class="phase-card p5">
+  <div class="phase-header" onclick="tog(5)">
+    <div class="phase-num-badge" style="background:#D85A30;">5</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#D85A30;">Phase 5</div>
+      <div class="phase-title">Expert Review — Quran Consultant Sign-off</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#D85A30;"><i class="ti ti-book" style="font-size:10px;"></i></div><div><div class="phu-name">Expert Reviewer</div><div class="phu-id">ID: EX-00015</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic5"></i>
+  </div>
+  <div class="phase-body open" id="bd5">
+    <div class="inner">
+      <div class="review-wrap">
+        <div class="review-prog-row">
+          <span>File 312 of 900</span>
+          <span style="color:var(--teal);font-weight:500;">34% complete</span>
+        </div>
+        <div class="review-bar"><div class="review-bar-fill"></div></div>
+        <textarea class="review-ayah" spellcheck="false" style="width:100%;border:1.5px solid transparent;border-radius:var(--radius-sm);background:transparent;resize:none;outline:none;padding:6px 8px;transition:border-color .2s;cursor:text;" onfocus="this.style.borderColor='var(--border)';this.style.background='var(--white)'" onblur="this.style.borderColor='transparent';this.style.background='transparent'">فَاقْرَءُوا مَا تَيَسَّرَ مِنْهُ وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَأَقْرِضُوا اللَّهَ قَرْضًا حَسَنًا</textarea>
+        <div class="meta-3">
+          <div class="meta-chip"><div class="meta-chip-l">Reciter</div><div class="meta-chip-v">Egypt · Male</div></div>
+          <div class="meta-chip"><div class="meta-chip-l">QA status</div><div class="meta-chip-v" style="color:var(--td);">Passed</div></div>
+        </div>
+        <div class="audio-preview" style="flex-direction:column;align-items:stretch;gap:8px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <button class="play-circle" id="p5PlayBtn" onclick="p5TogglePlay()"><i class="ti ti-player-play" id="p5PlayIc"></i></button>
+            <div style="flex:1;font-size:11px;color:var(--muted);">EG_0117_dea511eb.wav</div>
+            <span style="font-size:11px;color:var(--muted);" id="p5TimeDisp">0:00 / 0:18</span>
+          </div>
+          <div id="p5WaveBar" onclick="p5Seek(event)" style="height:44px;display:flex;align-items:center;gap:2px;cursor:pointer;position:relative;background:rgba(216,90,48,0.06);border-radius:10px;padding:0 8px;">
+            <div id="p5Head" style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--coral);pointer-events:none;z-index:3;border-radius:1px;box-shadow:0 0 5px rgba(216,90,48,0.4);"></div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:12px;">Is this recitation accurate and matching with text?</p>
+        <div class="yn-row">
+          <button class="btn yn-btn yn-y" style="font-size:14px;"><i class="ti ti-thumb-up"></i> Yes — Approve</button>
+          <button class="btn yn-btn yn-n" style="font-size:14px;"><i class="ti ti-thumb-down"></i> No — Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 6 ══════════ -->
+<div id="p6" class="phase-card p6">
+  <div class="phase-header" onclick="tog(6)">
+    <div class="phase-num-badge" style="background:#378ADD;">6</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#378ADD;">Phase 6</div>
+      <div class="phase-title">ML Validation — Arabic ML Engineers Final Check</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#378ADD;"><i class="ti ti-cpu" style="font-size:10px;"></i></div><div><div class="phu-name">ML Engineer</div><div class="phu-id">ID: ML-00056</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic6"></i>
+  </div>
+  <div class="phase-body open" id="bd6">
+    <div class="inner">
+      <div class="ml-stats-3">
+        <div class="ml-s"><div class="ml-lbl">Total files</div><div class="ml-num">6,840</div><div class="ml-sub ml-ok"><i class="ti ti-check" style="font-size:12px;"></i> All ingested</div></div>
+        <div class="ml-s"><div class="ml-lbl">Format valid</div><div class="ml-num">6,812</div><div class="ml-sub ml-warn">28 flagged</div></div>
+        <div class="ml-s"><div class="ml-lbl">Alignment score</div><div class="ml-num">97.4%</div><div class="ml-sub ml-ok">Above threshold</div></div>
+      </div>
+      <p class="label-sm">Flagged files</p>
+      <div class="file-row">
+        <i class="ti ti-file-audio"></i>
+        <span class="file-n">SA_0042_rec.wav</span>
+        <div class="dots"><div class="dot d-ok"></div><div class="dot d-ok"></div><div class="dot d-warn"></div></div>
+        <button class="btn btn-ghost" style="margin-left:8px;font-size:12px;padding:5px 12px;">Review</button>
+      </div>
+      <div class="file-row">
+        <i class="ti ti-file-audio"></i>
+        <span class="file-n">SY_0033_rec.wav</span>
+        <div class="dots"><div class="dot d-err"></div><div class="dot d-ok"></div><div class="dot d-ok"></div></div>
+        <button class="btn btn-ghost" style="margin-left:8px;font-size:12px;padding:5px 12px;">Review</button>
+      </div>
+      <div class="file-row">
+        <i class="ti ti-file-audio"></i>
+        <span class="file-n">EG_0199_rec.wav</span>
+        <div class="dots"><div class="dot d-ok"></div><div class="dot d-warn"></div><div class="dot d-ok"></div></div>
+        <button class="btn btn-ghost" style="margin-left:8px;font-size:12px;padding:5px 12px;">Review</button>
+      </div>
+      <div class="dot-legend">
+        <div class="dot d-ok"></div>Pass
+        <div class="dot d-warn"></div>Warning
+        <div class="dot d-err"></div>Error
+        <span style="margin-left:auto;font-size:11px;">Format · Tashkeel · Alignment</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 7 ══════════ -->
+<div id="p7" class="phase-card p7">
+  <div class="phase-header" onclick="tog(7)">
+    <div class="phase-num-badge" style="background:#888780;">7</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#888780;">Phase 7</div>
+      <div class="phase-title">Final Delivery — Voice Team Production</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#888780;"><i class="ti ti-package" style="font-size:10px;"></i></div><div><div class="phu-name">Delivery Lead</div><div class="phu-id">ID: DL-00008</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic7"></i>
+  </div>
+  <div class="phase-body open" id="bd7">
+    <div class="inner">
+      <div class="delivery-hero">
+        <div class="del-num">6,812</div>
+        <div class="del-sub">files ready for delivery</div>
+        <div><span class="del-badge"><i class="ti ti-circle-check" style="font-size:15px;"></i> All validation checks passed</span></div>
+      </div>
+      <div class="del-grid">
+        <div class="del-pkg">
+          <div class="del-pkg-title"><i class="ti ti-file-audio"></i> Audio package</div>
+          <div class="del-pkg-info">6,812 WAV files<br>16-bit / 44.1kHz<br>Total: 38.4 GB</div>
+        </div>
+        <div class="del-pkg">
+          <div class="del-pkg-title"><i class="ti ti-file-text"></i> Transcription package</div>
+          <div class="del-pkg-info">6,812 JSON files<br>Full tashkeel included<br>Timestamps aligned</div>
+        </div>
+        <div class="del-pkg">
+          <div class="del-pkg-title"><i class="ti ti-table"></i> Metadata manifest</div>
+          <div class="del-pkg-info">Speaker ID, gender, region<br>Surah & Ayah reference<br>QA scores included</div>
+        </div>
+        <div class="del-pkg">
+          <div class="del-pkg-title"><i class="ti ti-report"></i> QA report</div>
+          <div class="del-pkg-info">7-phase summary<br>Rejection log<br>Alignment metrics</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:14px;">
+        <i class="ti ti-download"></i> Download delivery bundle
+      </button>
+    </div>
+  </div>
+</div>
+
+<div style="height:40px;"></div>
+
+<script>
+function tog(n){
+  const bd=document.getElementById('bd'+n);
+  const ic=document.getElementById('ic'+n);
+  bd.classList.toggle('open');
+  ic.classList.toggle('open');
+}
+
+/* ── Phase 1 tab switch ── */
+function switchP1(opt){
+  ['a','b'].forEach(o=>{
+    document.getElementById('p1-opt-'+o).style.display=o===opt?'':'none';
+    const tb=document.getElementById('p1tab-'+o);
+    tb.style.borderBottomColor=o===opt?'var(--td)':'transparent';
+    tb.style.color=o===opt?'var(--td)':'var(--muted)';
+  });
+}
+
+/* ── Phase 2 reward toggle ── */
+/* ── Phase 3 tab switch ── */
+function switchP3(opt){
+  ['a','b'].forEach(o=>{
+    document.getElementById('p3-opt-'+o).style.display=o===opt?'':'none';
+    const tb=document.getElementById('p3tab-'+o);
+    tb.style.borderBottomColor=o===opt?'var(--purple)':'transparent';
+    tb.style.color=o===opt?'var(--purple)':'var(--muted)';
+  });
+}
+
+/* ── Phase 2 waveform (QC) ── */
+const wvEl=document.getElementById('wv');
+if(wvEl){
+  [18,28,14,36,22,42,16,30,38,12,26,44,20,34,16,40,24,18,32,46,14,28,36,20,42].forEach(h=>{
+    const b=document.createElement('div');
+    b.className='wv-b';b.style.height=h+'px';
+    wvEl.appendChild(b);
+  });
+}
+
+/* ── Phase 3 Ayah words (full ayah) ── */
+const WORDS3=[
+  'فَاقْرَءُوا','مَا','تَيَسَّرَ','مِنْهُ','وَأَقِيمُوا','الصَّلَاةَ',
+  'وَآتُوا','الزَّكَاةَ','وَأَقْرِضُوا','اللَّهَ','قَرْضًا','حَسَنًا',
+  'وَمَا','تُقَدِّمُوا','لِأَنْفُسِكُمْ','مِنْ','خَيْرٍ','تَجِدُوهُ',
+  'عِنْدَ','اللَّهِ','هُوَ','خَيْرًا','وَأَعْظَمَ','أَجْرًا'
+];
+const wRow=document.getElementById('wordRow3');
+if(wRow){
+  WORDS3.forEach((w,i)=>{
+    const sp=document.createElement('span');
+    sp.className='word-chip';sp.textContent=w;sp.dataset.idx=i;
+    sp.onclick=()=>{
+      document.querySelectorAll('#wordRow3 .word-chip').forEach(x=>x.classList.remove('active'));
+      sp.classList.add('active');
+    };
+    wRow.appendChild(sp);
+  });
+}
+
+const WORDS3B=['فَاقْرَءُوا','مَا','تَيَسَّرَ','مِنْهُ','وَأَقِيمُوا','الصَّلَاةَ','وَآتُوا','الزَّكَاةَ','وَأَقْرِضُوا','اللَّهَ','قَرْضًا','حَسَنًا'];
+const wRow3b=document.getElementById('wordRow3b');
+if(wRow3b){
+  WORDS3B.forEach(w=>{
+    const sp=document.createElement('span');
+    sp.className='word-chip';sp.textContent=w;
+    sp.onclick=()=>{
+      document.querySelectorAll('#wordRow3b .word-chip').forEach(x=>x.classList.remove('active'));
+      sp.classList.add('active');
+    };
+    wRow3b.appendChild(sp);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   SHARED: gradient equalizer bar renderer
+   Mimics the reference image — each bar has a
+   vertical gradient (light top → saturated bottom)
+   with a mirrored dimmer reflection below center.
+   gradientPlayed / gradientUnplayed = CSS gradient strings
+   ══════════════════════════════════════════════ */
+function buildVoiceBars(containerEl, heights, playedColor, unplayedColor, playedPct, gradientPlayed, gradientUnplayed){
+  Array.from(containerEl.children).forEach(c=>{
+    if(!c.id || (!c.id.includes('Head') && !c.id.includes('head') && !c.id.includes('Pins') && !c.id.includes('pins')))
+      containerEl.removeChild(c);
+  });
+  const total = heights.length;
+  const gp  = gradientPlayed   || `linear-gradient(to bottom, ${playedColor.replace(/[\d.]+\)$/,'0.7)')}, ${playedColor})`;
+  const gu  = gradientUnplayed || `linear-gradient(to bottom, ${unplayedColor.replace(/[\d.]+\)$/,'0.4)')}, ${unplayedColor})`;
+  const gpR = gradientPlayed   ? gradientPlayed.replace('to bottom','to top').replace(/[\d.]+\)(?=[,)])/g, m => parseFloat(m)*0.28+')') : null;
+  const guR = gradientUnplayed ? gradientUnplayed.replace('to bottom','to top').replace(/[\d.]+\)(?=[,)])/g, m => parseFloat(m)*0.2+')') : null;
+
+  heights.forEach((h, i)=>{
+    const pct = i/total;
+    const played = pct < playedPct;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5px;height:100%;`;
+    // top bar — full gradient
+    const top = document.createElement('div');
+    top.style.cssText = `width:100%;max-width:4px;min-width:2px;height:${h}px;border-radius:3px 3px 1px 1px;background:${played?gp:gu};transition:background .07s;`;
+    top.id = containerEl.id+'t'+i;
+    // reflection bar — flipped, dimmer
+    const botH = Math.max(2, Math.round(h * 0.38));
+    const bot = document.createElement('div');
+    bot.style.cssText = `width:100%;max-width:4px;min-width:2px;height:${botH}px;border-radius:1px 1px 3px 3px;background:${played?(gpR||gp):(guR||gu)};opacity:${played?0.32:0.18};transition:background .07s,opacity .07s;`;
+    bot.id = containerEl.id+'b'+i;
+    wrapper.appendChild(top);
+    wrapper.appendChild(bot);
+    const head = containerEl.querySelector('[id$="Head"],[id$="head"]');
+    containerEl.insertBefore(wrapper, head || null);
+  });
+}
+
+function updateVoiceBars(containerEl, heights, playedColor, unplayedColor, playedPct, gradientPlayed, gradientUnplayed){
+  const total = heights.length;
+  const gp = gradientPlayed   || `linear-gradient(to bottom, ${playedColor.replace(/[\d.]+\)$/,'0.7)')}, ${playedColor})`;
+  const gu = gradientUnplayed || `linear-gradient(to bottom, ${unplayedColor.replace(/[\d.]+\)$/,'0.35)')}, ${unplayedColor})`;
+  const gpR = gradientPlayed ? gradientPlayed.replace('to bottom','to top') : null;
+  const guR = gradientUnplayed ? gradientUnplayed.replace('to bottom','to top') : null;
+  heights.forEach((h, i)=>{
+    const played = (i/total) < playedPct;
+    const top = document.getElementById(containerEl.id+'t'+i);
+    const bot = document.getElementById(containerEl.id+'b'+i);
+    if(top){ top.style.background = played ? gp : gu; }
+    if(bot){
+      bot.style.background = played ? (gpR||gp) : (guR||gu);
+      bot.style.opacity = played ? '0.32' : '0.18';
+    }
+  });
+}
+
+/* ── SoundCloud / Phase 3 Option A ── */
+const SC_DUR=18;
+const SC_HEIGHTS=[6,10,18,14,26,20,32,24,38,30,42,36,40,33,26,20,28,34,38,42,36,28,22,16,24,30,36,40,42,38,34,26,20,14,22,28,34,38,42,40,36,28,22,16,12,20,26,32,38,42,40,34,28,22,16,24,30,36,40,42];
+let scPlaying=false,scTime=0,scSpd=1,scRaf=null,scLast=null;
+const SC_PLAYED  = 'rgba(167,162,240,1)';
+const SC_UNPLAYED= 'rgba(127,119,221,0.28)';
+const SC_GP = 'linear-gradient(to bottom, rgba(210,208,252,1) 0%, rgba(120,112,220,1) 100%)';
+const SC_GU = 'linear-gradient(to bottom, rgba(180,175,240,0.25) 0%, rgba(100,93,200,0.3) 100%)';
+
+function buildSCWave(){
+  const wave=document.getElementById('scWave');if(!wave)return;
+  buildVoiceBars(wave, SC_HEIGHTS, SC_PLAYED, SC_UNPLAYED, scTime/SC_DUR, SC_GP, SC_GU);
+}
+
+function updateSCHead(){
+  const wave=document.getElementById('scWave');if(!wave)return;
+  const pct=scTime/SC_DUR;
+  const head=document.getElementById('scHead');
+  if(head)head.style.left=(pct*100)+'%';
+  updateVoiceBars(wave, SC_HEIGHTS, SC_PLAYED, SC_UNPLAYED, pct, SC_GP, SC_GU);
+  const s=Math.floor(scTime);
+  const lbl=document.getElementById('scTimeLbl');
+  if(lbl)lbl.textContent='0:'+(s<10?'0':'')+s+' / 0:18';
+  const widx=Math.floor((scTime/SC_DUR)*WORDS3.length);
+  document.querySelectorAll('#wordRow3 .word-chip').forEach((el,i)=>{
+    el.classList.remove('active','done');
+    if(i<widx)el.classList.add('done');
+    else if(i===widx)el.classList.add('active');
+  });
+}
+
+function scTogglePlay(){
+  scPlaying=!scPlaying;
+  const ic=document.getElementById('scPlayIc');
+  if(ic)ic.className=scPlaying?'ti ti-player-pause':'ti ti-player-play';
+  if(scPlaying){scLast=null;scRaf=requestAnimationFrame(scTick);}
+  else cancelAnimationFrame(scRaf);
+}
+function scTick(ts){
+  if(!scLast)scLast=ts;
+  const dt=(ts-scLast)/1000;scLast=ts;
+  scTime=Math.min(SC_DUR,scTime+dt*scSpd);
+  updateSCHead();
+  if(scTime>=SC_DUR){scPlaying=false;scTime=0;const ic=document.getElementById('scPlayIc');if(ic)ic.className='ti ti-player-play';return;}
+  if(scPlaying)scRaf=requestAnimationFrame(scTick);
+}
+let scPendingPct=0;
+function scWaveClick(ev){
+  const wave=document.getElementById('scWave');if(!wave)return;
+  const r=wave.getBoundingClientRect();
+  const pct=Math.max(0,Math.min(1,(ev.clientX-r.left)/r.width));
+  const t=pct*SC_DUR;
+  // STOP playback
+  if(scPlaying){
+    scPlaying=false;
+    cancelAnimationFrame(scRaf);
+    const ic=document.getElementById('scPlayIc');
+    if(ic)ic.className='ti ti-player-play';
+  }
+  // move playhead
+  scTime=t; updateSCHead();
+  // show comment input
+  scPendingPct=pct;
+  const s=Math.floor(t);
+  document.getElementById('scCommentAtLbl').innerHTML=`<i class="ti ti-pin" style="font-size:11px;"></i> Add annotation at 0:${s<10?'0':''}${s}`;
+  document.getElementById('scCommentBox').style.display='block';
+  document.getElementById('scCommentInput').value='';
+  setTimeout(()=>document.getElementById('scCommentInput').focus(),50);
+}
+
+function scSaveComment(){
+  const txt=document.getElementById('scCommentInput').value.trim();
+  if(!txt)return;
+  const pct=scPendingPct;
+  const t=Math.round(pct*SC_DUR);
+  // add pin directly ON the waveform
+  const pins=document.getElementById('scPins');
+  const pin=document.createElement('div');
+  pin.style.cssText=`position:absolute;left:${pct*100}%;transform:translateX(-50%);top:0;bottom:0;pointer-events:all;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;`;
+  pin.innerHTML=`
+    <div style="width:2px;height:100%;background:rgba(167,162,240,0.7);position:absolute;top:0;left:50%;transform:translateX(-50%);"></div>
+    <div class="sc-pin-bubble" title="${txt}" style="position:absolute;top:4px;background:var(--purple);border-radius:6px 6px 6px 2px;padding:3px 7px;font-size:10px;color:#fff;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 8px rgba(0,0,0,0.35);cursor:pointer;border:1px solid rgba(255,255,255,0.15);">${txt}</div>
+  `;
+  pins.appendChild(pin);
+  // also list below
+  const list=document.getElementById('scAnnotationList');
+  const row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:flex-start;gap:8px;padding:6px 10px;background:rgba(127,119,221,0.08);border:1px solid rgba(127,119,221,0.18);border-radius:6px;margin-bottom:6px;';
+  row.innerHTML=`<span style="font-size:10px;color:var(--purple);font-weight:500;white-space:nowrap;padding-top:2px;">0:${t<10?'0':''}${t}</span>
+    <span style="font-size:12px;color:rgba(255,255,255,0.75);flex:1;">${txt}</span>
+    <span onclick="this.parentNode.remove();pin.remove();" style="color:rgba(255,255,255,0.25);cursor:pointer;font-size:13px;padding-top:1px;">✕</span>`;
+  list.appendChild(row);
+  document.getElementById('scCommentBox').style.display='none';
+}
+
+function scSeek(ev){
+  const wave=document.getElementById('scWave');if(!wave)return;
+  const r=wave.getBoundingClientRect();
+  scTime=Math.max(0,Math.min(SC_DUR,((ev.clientX-r.left)/r.width)*SC_DUR));
+  updateSCHead();
+}
+
+/* ── Phase 3 Option B waveform ── */
+const P3B_H=[8,14,24,18,32,26,38,30,42,36,40,30,24,18,26,32,38,42,40,34,26,20,14,22,28,34,38,42,40,36];
+let p3bPlaying=false,p3bTime=0,p3bSpd=1,p3bRaf=null,p3bLast=null;
+const P3B_DUR=18;
+const P3B_PLAYED  ='rgba(15,110,86,0.9)';
+const P3B_UNPLAYED='rgba(15,110,86,0.2)';
+const P3B_GP='linear-gradient(to bottom, rgba(77,195,154,1) 0%, rgba(8,80,65,1) 100%)';
+const P3B_GU='linear-gradient(to bottom, rgba(29,158,117,0.2) 0%, rgba(8,80,65,0.22) 100%)';
+
+function buildP3BWave(){
+  const w=document.getElementById('p3bWave');if(!w)return;
+  buildVoiceBars(w, P3B_H, P3B_PLAYED, P3B_UNPLAYED, p3bTime/P3B_DUR, P3B_GP, P3B_GU);
+}
+function updateP3BHead(){
+  const pct=p3bTime/P3B_DUR;
+  const h=document.getElementById('p3bHead');if(h)h.style.left=(pct*100)+'%';
+  const w=document.getElementById('p3bWave');if(w)updateVoiceBars(w,P3B_H,P3B_PLAYED,P3B_UNPLAYED,pct,P3B_GP,P3B_GU);
+  const s=Math.floor(p3bTime);
+  const td=document.getElementById('p3bTimeDisp');if(td)td.textContent='0:'+(s<10?'0':'')+s+' / 0:18';
+  const lbl=document.getElementById('p3bTimeLbl');if(lbl)lbl.textContent='0:'+(s<10?'0':'')+s;
+}
+function p3bTogglePlay(){
+  p3bPlaying=!p3bPlaying;
+  const ic=document.getElementById('p3bPlayIc');
+  if(ic)ic.className=p3bPlaying?'ti ti-player-pause':'ti ti-player-play';
+  if(p3bPlaying){p3bLast=null;p3bRaf=requestAnimationFrame(p3bTick);}
+  else cancelAnimationFrame(p3bRaf);
+}
+function p3bTick(ts){
+  if(!p3bLast)p3bLast=ts;const dt=(ts-p3bLast)/1000;p3bLast=ts;
+  p3bTime=Math.min(P3B_DUR,p3bTime+dt*p3bSpd);
+  updateP3BHead();
+  if(p3bTime>=P3B_DUR){p3bPlaying=false;p3bTime=0;const ic=document.getElementById('p3bPlayIc');if(ic)ic.className='ti ti-player-play';return;}
+  if(p3bPlaying)p3bRaf=requestAnimationFrame(p3bTick);
+}
+function p3bSeek(ev){
+  const w=document.getElementById('p3bWave');if(!w)return;
+  const r=w.getBoundingClientRect();
+  p3bTime=Math.max(0,Math.min(P3B_DUR,((ev.clientX-r.left)/r.width)*P3B_DUR));
+  updateP3BHead();
+}
+
+function setS3(s,btn){
+  scSpd=s;p3bSpd=s;
+  document.querySelectorAll('#bd3 .spd').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+/* ── Phase 4 QA audio ── */
+const QA_H=[10,16,26,20,32,26,36,28,38,32,36,26,20,14,22,28,34,38,36,30,22,16,24,30,36,38];
+let qaPlaying=false,qaTime=0,qaSpd=1,qaRaf=null,qaLast=null;
+const QA_DUR=18;
+const QA_PLAYED  ='rgba(239,159,39,0.9)';
+const QA_UNPLAYED='rgba(239,159,39,0.22)';
+const QA_GP='linear-gradient(to bottom, rgba(252,210,120,1) 0%, rgba(180,90,10,1) 100%)';
+const QA_GU='linear-gradient(to bottom, rgba(239,159,39,0.22) 0%, rgba(160,80,8,0.24) 100%)';
+
+function buildQAWave(){
+  const w=document.getElementById('qaWaveBar');if(!w)return;
+  buildVoiceBars(w,QA_H,QA_PLAYED,QA_UNPLAYED,qaTime/QA_DUR,QA_GP,QA_GU);
+}
+function updateQAHead(){
+  const pct=qaTime/QA_DUR;
+  const h=document.getElementById('qaHead');if(h)h.style.left=(pct*100)+'%';
+  const w=document.getElementById('qaWaveBar');if(w)updateVoiceBars(w,QA_H,QA_PLAYED,QA_UNPLAYED,pct,QA_GP,QA_GU);
+  const s=Math.floor(qaTime);
+  const td=document.getElementById('qaTimeDisp');if(td)td.textContent='0:'+(s<10?'0':'')+s+' / 0:18';
+}
+function qaTogglePlay(){
+  qaPlaying=!qaPlaying;
+  const ic=document.getElementById('qaPlayIc');
+  if(ic)ic.className=qaPlaying?'ti ti-player-pause':'ti ti-player-play';
+  if(qaPlaying){qaLast=null;qaRaf=requestAnimationFrame(qaTick);}
+  else cancelAnimationFrame(qaRaf);
+}
+function qaTick(ts){
+  if(!qaLast)qaLast=ts;const dt=(ts-qaLast)/1000;qaLast=ts;
+  qaTime=Math.min(QA_DUR,qaTime+dt*qaSpd);
+  updateQAHead();
+  if(qaTime>=QA_DUR){qaPlaying=false;qaTime=0;const ic=document.getElementById('qaPlayIc');if(ic)ic.className='ti ti-player-play';return;}
+  if(qaPlaying)qaRaf=requestAnimationFrame(qaTick);
+}
+function qaSeek(ev){
+  const w=document.getElementById('qaWaveBar');if(!w)return;
+  const r=w.getBoundingClientRect();
+  qaTime=Math.max(0,Math.min(QA_DUR,((ev.clientX-r.left)/r.width)*QA_DUR));
+  updateQAHead();
+}
+function setQAspd(s,btn){
+  qaSpd=s;
+  document.querySelectorAll('#bd4 .spd').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+/* ── Phase 5 Expert Review audio ── */
+const P5_H=[8,14,22,16,28,22,34,26,36,30,34,24,18,12,20,26,32,36,34,28,20,14,18,24,30,34,36,30,24,18];
+let p5Playing=false,p5Time=0,p5Raf=null,p5Last=null;
+const P5_DUR=18;
+const P5_PLAYED  ='rgba(216,90,48,0.85)';
+const P5_UNPLAYED='rgba(216,90,48,0.2)';
+const P5_GP='linear-gradient(to bottom, rgba(248,168,120,1) 0%, rgba(160,45,15,1) 100%)';
+const P5_GU='linear-gradient(to bottom, rgba(216,90,48,0.2) 0%, rgba(130,40,12,0.22) 100%)';
+
+function buildP5Wave(){
+  const w=document.getElementById('p5WaveBar');if(!w)return;
+  buildVoiceBars(w,P5_H,P5_PLAYED,P5_UNPLAYED,0,P5_GP,P5_GU);
+}
+function updateP5Head(){
+  const pct=p5Time/P5_DUR;
+  const h=document.getElementById('p5Head');if(h)h.style.left=(pct*100)+'%';
+  const w=document.getElementById('p5WaveBar');if(w)updateVoiceBars(w,P5_H,P5_PLAYED,P5_UNPLAYED,pct,P5_GP,P5_GU);
+  const s=Math.floor(p5Time);
+  const td=document.getElementById('p5TimeDisp');if(td)td.textContent='0:'+(s<10?'0':'')+s+' / 0:18';
+}
+function p5TogglePlay(){
+  p5Playing=!p5Playing;
+  const ic=document.getElementById('p5PlayIc');
+  if(ic)ic.className=p5Playing?'ti ti-player-pause':'ti ti-player-play';
+  if(p5Playing){p5Last=null;p5Raf=requestAnimationFrame(p5Tick);}
+  else cancelAnimationFrame(p5Raf);
+}
+function p5Tick(ts){
+  if(!p5Last)p5Last=ts;const dt=(ts-p5Last)/1000;p5Last=ts;
+  p5Time=Math.min(P5_DUR,p5Time+dt);
+  updateP5Head();
+  if(p5Time>=P5_DUR){p5Playing=false;p5Time=0;const ic=document.getElementById('p5PlayIc');if(ic)ic.className='ti ti-player-play';return;}
+  if(p5Playing)p5Raf=requestAnimationFrame(p5Tick);
+}
+function p5Seek(ev){
+  const w=document.getElementById('p5WaveBar');if(!w)return;
+  const r=w.getBoundingClientRect();
+  p5Time=Math.max(0,Math.min(P5_DUR,((ev.clientX-r.left)/r.width)*P5_DUR));
+  updateP5Head();
+}
+
+/* ── Session recording timer (Phase 1) ── */
+const SESSION_MAX = 4 * 3600; // 4 hours in seconds
+let sessionSecs = 0;
+let sessionInterval = null;
+let sessionRunning = false;
+
+function sessionTimerStart() {
+  if (sessionRunning) return;
+  sessionRunning = true;
+  sessionInterval = setInterval(() => {
+    sessionSecs++;
+    sessionTimerUpdate();
+    if (sessionSecs >= SESSION_MAX) {
+      sessionTimerStop();
+      sessionTimerShowLimit();
+    }
+  }, 1000);
+}
+
+function sessionTimerStop() {
+  sessionRunning = false;
+  clearInterval(sessionInterval);
+}
+
+function sessionTimerUpdate() {
+  const h = Math.floor(sessionSecs / 3600);
+  const m = Math.floor((sessionSecs % 3600) / 60);
+  const s = sessionSecs % 60;
+  const fmt = `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const dispA = document.getElementById('sessionTimerA');
+  const dispB = document.getElementById('sessionTimerB');
+  if (dispA) dispA.textContent = fmt;
+  if (dispB) dispB.textContent = fmt;
+  // Turn amber when over 3h, red at limit
+  const pct = sessionSecs / SESSION_MAX;
+  const color = pct >= 1 ? '#e53935' : pct >= 0.75 ? '#EF9F27' : 'var(--tdk)';
+  ['sessionTimerPill','sessionTimerPillB'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.borderColor = pct >= 0.75 ? (pct >= 1 ? '#e5393540' : '#EF9F2740') : '';
+      el.style.background = pct >= 0.75 ? (pct >= 1 ? '#fff0f0' : '#fffbf0') : '';
+    }
+  });
+  ['sessionTimerIcon','sessionTimerIconB'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.color = color;
+  });
+  if (dispA) dispA.style.color = color;
+  if (dispB) dispB.style.color = color;
+}
+
+function sessionTimerShowLimit() {
+  ['sessionTimerPill','sessionTimerPillB'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.title = 'Daily recording limit reached (4 hours). Please resume tomorrow.';
+      el.style.borderColor = '#e5393560';
+      el.style.background = '#fff0f0';
+    }
+  });
+}
+
+/* ── mic buttons ── */
+let recs={},rtimers={};
+function toggleMic(n){
+  // Block recording if session limit reached
+  if (!recs[n] && sessionSecs >= SESSION_MAX) {
+    sessionTimerShowLimit();
+    return;
+  }
+  recs[n]=!recs[n];
+  const btn=document.getElementById('m'+n);
+  const ic=document.getElementById('mi'+n);
+  const lbl=document.getElementById('ml'+n);
+  if(recs[n]){
+    btn.classList.add('rec');ic.className='ti ti-player-stop';
+    sessionTimerStart();
+    let s=0;
+    rtimers[n]=setInterval(()=>{
+      s++;const m=Math.floor(s/60),sec=s%60;
+      lbl.textContent=(m>0?m+'m ':'')+sec+'s — Recording...';
+    },1000);
+  } else {
+    btn.classList.remove('rec');ic.className='ti ti-microphone';
+    sessionTimerStop();
+    lbl.textContent='Saved!';clearInterval(rtimers[n]);
+    setTimeout(()=>{const el=document.getElementById('ml'+n);if(el)el.textContent='Tap to record';},2000);
+  }
+}
+
+/* ── Init ── */
+window.addEventListener('load',()=>{
+  buildSCWave();
+  buildP3BWave();
+  buildQAWave();
+  buildP5Wave();
+});
+</script>
+</body>
+</html>
