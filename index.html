@@ -248,6 +248,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
     <a href="#p5">Expert Review</a>
     <a href="#p6">ML Validation</a>
     <a href="#p7">Delivery</a>
+    <a href="#p8" style="color:#2563EB;font-weight:600;">Dashboard</a>
   </div>
   <div class="g-counter">
     <i class="ti ti-microphone"></i>
@@ -498,6 +499,11 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
       <div class="phase-title">Transcription — Word Detection & Tashkeel</div>
     </div>
     <div class="phase-header-user"><div class="phu-avatar" style="background:#7F77DD;"><i class="ti ti-pencil" style="font-size:10px;"></i></div><div><div class="phu-name">Transcriber</div><div class="phu-id">ID: TR-00334</div></div></div>
+    <div id="timerPill3" style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;margin-right:6px;">
+      <i class="ti ti-clock" style="font-size:12px;color:#7F77DD;" id="timerIcon3"></i>
+      <span style="font-size:11px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;" id="timerDisp3">0:00:00</span>
+      <span style="font-size:10px;color:var(--muted);"> / 6:00:00</span>
+    </div>
     <i class="ti ti-chevron-down toggle-icon open" id="ic3"></i>
   </div>
   <div class="phase-body open" id="bd3">
@@ -642,6 +648,11 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
       <div class="phase-title">QA Review — Listen, Correct & Complete Data</div>
     </div>
     <div class="phase-header-user"><div class="phu-avatar" style="background:#EF9F27;"><i class="ti ti-user-check" style="font-size:10px;"></i></div><div><div class="phu-name">QA Analyst</div><div class="phu-id">ID: QA-00092</div></div></div>
+    <div id="timerPill4" style="display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:4px 12px;margin-right:6px;">
+      <i class="ti ti-clock" style="font-size:12px;color:#EF9F27;" id="timerIcon4"></i>
+      <span style="font-size:11px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;" id="timerDisp4">0:00:00</span>
+      <span style="font-size:10px;color:var(--muted);"> / 6:00:00</span>
+    </div>
     <i class="ti ti-chevron-down toggle-icon open" id="ic4"></i>
   </div>
   <div class="phase-body open" id="bd4">
@@ -858,6 +869,126 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
       <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:14px;">
         <i class="ti ti-download"></i> Download delivery bundle
       </button>
+    </div>
+  </div>
+</div>
+
+<div style="height:40px;"></div>
+
+<div class="phase-connector"><div class="connector-line"></div><i class="ti ti-arrow-down connector-arrow"></i><div class="connector-line"></div></div>
+
+<!-- ══════════ PHASE 8 ══════════ -->
+<div id="p8" class="phase-card" style="border-top:3px solid #2563EB;">
+  <div class="phase-header" onclick="tog(8)" style="background:linear-gradient(135deg,#EFF6FF,#fff);">
+    <div class="phase-num-badge" style="background:#2563EB;">8</div>
+    <div class="phase-header-info">
+      <div class="phase-tag" style="color:#2563EB;">Phase 8</div>
+      <div class="phase-title">Manager Dashboard — Project Overview</div>
+    </div>
+    <div class="phase-header-user"><div class="phu-avatar" style="background:#2563EB;"><i class="ti ti-layout-dashboard" style="font-size:10px;"></i></div><div><div class="phu-name">Project Manager</div><div class="phu-id">ID: MGR-00001</div></div></div>
+    <i class="ti ti-chevron-down toggle-icon open" id="ic8"></i>
+  </div>
+  <div class="phase-body open" id="bd8">
+    <div class="inner" style="max-width:900px;padding:20px;">
+
+      <!-- Top KPI row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:700;color:#2563EB;">24</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Total Users</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:700;color:#0F6E56;">142 h</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Total Recorded</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:700;color:#7F77DD;">94.2%</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Avg. Transcription Accuracy</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:700;color:#EF9F27;">91.8%</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Avg. QA Accuracy</div>
+        </div>
+      </div>
+
+      <!-- Section: Reciters -->
+      <div style="margin-bottom:24px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#0F6E56;display:inline-block;"></span> Reciters — Recording Hours
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead>
+              <tr style="background:#F8F9FA;border-bottom:1px solid var(--border);">
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">User ID</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Hours Recorded</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Ayahs Done</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Today's Session</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">REC-00421</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#e8f5f0;border-radius:3px;"><div style="width:58%;height:100%;background:#0F6E56;border-radius:3px;"></div></div><span style="white-space:nowrap;">2h 20m / 4h</span></div></td><td style="padding:10px 14px;">1,247</td><td style="padding:10px 14px;">2h 20m</td><td style="padding:10px 14px;"><span style="background:#e8f5f0;color:#0F6E56;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Active</span></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">REC-00388</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#e8f5f0;border-radius:3px;"><div style="width:44%;height:100%;background:#0F6E56;border-radius:3px;"></div></div><span style="white-space:nowrap;">1h 45m / 4h</span></div></td><td style="padding:10px 14px;">892</td><td style="padding:10px 14px;">1h 45m</td><td style="padding:10px 14px;"><span style="background:#e8f5f0;color:#0F6E56;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Active</span></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">REC-00305</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#e8f5f0;border-radius:3px;"><div style="width:92%;height:100%;background:#EF9F27;border-radius:3px;"></div></div><span style="white-space:nowrap;color:#E65100;font-weight:500;">3h 41m / 4h</span></div></td><td style="padding:10px 14px;">1,804</td><td style="padding:10px 14px;">3h 41m</td><td style="padding:10px 14px;"><span style="background:#FFF3E0;color:#E65100;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Near limit</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:500;">REC-00277</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#fee2e2;border-radius:3px;"><div style="width:100%;height:100%;background:#e53935;border-radius:3px;"></div></div><span style="white-space:nowrap;color:#e53935;font-weight:600;">4h 00m / 4h</span></div></td><td style="padding:10px 14px;">1,960</td><td style="padding:10px 14px;">4h 00m</td><td style="padding:10px 14px;"><span style="background:#fee2e2;color:#e53935;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Limit reached</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section: Transcribers -->
+      <div style="margin-bottom:24px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#7F77DD;display:inline-block;"></span> Transcribers — Accuracy & Hours
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead>
+              <tr style="background:#F8F9FA;border-bottom:1px solid var(--border);">
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">User ID</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Hours Worked</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Files Transcribed</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Accuracy</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">TR-00334</td><td style="padding:10px 14px;">38 h</td><td style="padding:10px 14px;">2,104</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#EDE9FE;border-radius:3px;"><div style="width:97%;height:100%;background:#7F77DD;border-radius:3px;"></div></div><span style="font-weight:600;color:#7F77DD;">97%</span></div></td><td style="padding:10px 14px;"><span style="background:#EDE9FE;color:#5B52C8;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Excellent</span></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">TR-00291</td><td style="padding:10px 14px;">31 h</td><td style="padding:10px 14px;">1,740</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#EDE9FE;border-radius:3px;"><div style="width:94%;height:100%;background:#7F77DD;border-radius:3px;"></div></div><span style="font-weight:600;color:#7F77DD;">94%</span></div></td><td style="padding:10px 14px;"><span style="background:#EDE9FE;color:#5B52C8;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Excellent</span></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">TR-00258</td><td style="padding:10px 14px;">44 h</td><td style="padding:10px 14px;">2,390</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#EDE9FE;border-radius:3px;"><div style="width:88%;height:100%;background:#9D96E8;border-radius:3px;"></div></div><span style="font-weight:600;color:#9D96E8;">88%</span></div></td><td style="padding:10px 14px;"><span style="background:#F3F4F6;color:#6B7280;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Good</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:500;">TR-00214</td><td style="padding:10px 14px;">22 h</td><td style="padding:10px 14px;">1,180</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#EDE9FE;border-radius:3px;"><div style="width:79%;height:100%;background:#C4BFF0;border-radius:3px;"></div></div><span style="font-weight:600;color:#9D96E8;">79%</span></div></td><td style="padding:10px 14px;"><span style="background:#FEF9C3;color:#92400E;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Needs review</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section: QA Reviewers -->
+      <div style="margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#EF9F27;display:inline-block;"></span> QA Analysts — Review Accuracy
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead>
+              <tr style="background:#F8F9FA;border-bottom:1px solid var(--border);">
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">User ID</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Hours Worked</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Files Reviewed</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Accuracy</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Flags Raised</th>
+                <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:500;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">QA-00092</td><td style="padding:10px 14px;">29 h</td><td style="padding:10px 14px;">1,830</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#FEF3C7;border-radius:3px;"><div style="width:96%;height:100%;background:#EF9F27;border-radius:3px;"></div></div><span style="font-weight:600;color:#EF9F27;">96%</span></div></td><td style="padding:10px 14px;">12</td><td style="padding:10px 14px;"><span style="background:#FEF3C7;color:#92400E;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Excellent</span></td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td style="padding:10px 14px;font-weight:500;">QA-00078</td><td style="padding:10px 14px;">35 h</td><td style="padding:10px 14px;">2,210</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#FEF3C7;border-radius:3px;"><div style="width:91%;height:100%;background:#EF9F27;border-radius:3px;"></div></div><span style="font-weight:600;color:#EF9F27;">91%</span></div></td><td style="padding:10px 14px;">34</td><td style="padding:10px 14px;"><span style="background:#FEF3C7;color:#92400E;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Excellent</span></td></tr>
+              <tr><td style="padding:10px 14px;font-weight:500;">QA-00063</td><td style="padding:10px 14px;">18 h</td><td style="padding:10px 14px;">1,140</td><td style="padding:10px 14px;"><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:5px;background:#FEF3C7;border-radius:3px;"><div style="width:83%;height:100%;background:#F5C060;border-radius:3px;"></div></div><span style="font-weight:600;color:#F5C060;">83%</span></div></td><td style="padding:10px 14px;">61</td><td style="padding:10px 14px;"><span style="background:#F3F4F6;color:#6B7280;border-radius:100px;padding:2px 10px;font-size:10px;font-weight:500;">Good</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1292,6 +1423,52 @@ function sessionTimerShowLimit() {
     }
   });
 }
+
+/* ── Phase 3 Transcriber timer ── */
+let tr3Secs=0, tr3Running=false, tr3Interval=null;
+function tr3Start(){
+  if(tr3Running)return;
+  tr3Running=true;
+  tr3Interval=setInterval(()=>{
+    tr3Secs++;
+    const h=Math.floor(tr3Secs/3600),m=Math.floor((tr3Secs%3600)/60),s=tr3Secs%60;
+    const el=document.getElementById('timerDisp3');
+    if(el)el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    const pct=tr3Secs/21600;
+    const color=pct>=1?'#e53935':pct>=0.75?'#EF9F27':'#7F77DD';
+    const ic=document.getElementById('timerIcon3');if(ic)ic.style.color=color;
+    if(el)el.style.color=color;
+  },1000);
+}
+function tr3Stop(){tr3Running=false;clearInterval(tr3Interval);}
+
+/* ── Phase 4 QA Analyst timer ── */
+let qa4Secs=0, qa4Running=false, qa4Interval=null;
+function qa4Start(){
+  if(qa4Running)return;
+  qa4Running=true;
+  qa4Interval=setInterval(()=>{
+    qa4Secs++;
+    const h=Math.floor(qa4Secs/3600),m=Math.floor((qa4Secs%3600)/60),s=qa4Secs%60;
+    const el=document.getElementById('timerDisp4');
+    if(el)el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    const pct=qa4Secs/21600;
+    const color=pct>=1?'#e53935':pct>=0.75?'#e57c00':'#EF9F27';
+    const ic=document.getElementById('timerIcon4');if(ic)ic.style.color=color;
+    if(el)el.style.color=color;
+  },1000);
+}
+function qa4Stop(){qa4Running=false;clearInterval(qa4Interval);}
+
+// Auto-start timers when user opens Phase 3 or 4 body
+const _origTog=tog;
+function tog(n){
+  _origTog(n);
+  if(n===3){const bd=document.getElementById('bd3');if(bd&&bd.classList.contains('open'))tr3Start();else tr3Stop();}
+  if(n===4){const bd=document.getElementById('bd4');if(bd&&bd.classList.contains('open'))qa4Start();else qa4Stop();}
+}
+// Start on load since both are open by default
+window.addEventListener('load',()=>{ tr3Start(); qa4Start(); });
 
 /* ── mic buttons ── */
 let recs={},rtimers={};
